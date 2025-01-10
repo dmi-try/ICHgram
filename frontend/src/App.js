@@ -1,6 +1,9 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
+import SignupPage from "./pages/signupPage/SignupPage.jsx";
+import LoginPage from "./pages/loginPage/LoginPage.jsx";
 
 function App() {
   const [response, setResponse] = useState("");
@@ -16,10 +19,21 @@ function App() {
         console.error("Error fetching data from server:", error);
       });
   }, []);
+
   return (
     <>
       <h2>Connection test</h2>
       <p>{response}</p>
+
+      <Router>
+        <nav>
+          <Link to="/register">Register</Link> | <Link to="/login">Login</Link>
+        </nav>
+        <Routes>
+          <Route path="/register" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
