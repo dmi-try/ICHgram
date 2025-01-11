@@ -1,6 +1,7 @@
 import styles from "./LoginPage.module.css";
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -8,7 +9,7 @@ function LoginPage() {
     password: "",
   });
   const [message, setMessage] = useState("");
-  const [token, setToken] = useState("");
+  const navigate = useNavigate(); // Хук для навигации
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,8 +22,16 @@ function LoginPage() {
         "http://localhost:3303/auth/login",
         formData
       );
-      setToken(response.data.token);
+
+      // Сохраняем токен в localStorage
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+
+      // Устанавливаем сообщение о успешном логине
       setMessage("Login successful!");
+
+      // Перенаправляем на страницу профиля
+      navigate("/profile");
     } catch (error) {
       setMessage(
         error.response?.data?.message || "An error occurred during login"
@@ -53,12 +62,6 @@ function LoginPage() {
         <button type="submit">Login</button>
       </form>
       {message && <p>{message}</p>}
-      {token && (
-        <div>
-          <p>Token:</p>
-          <textarea value={token} readOnly rows="4" cols="50" />
-        </div>
-      )}
     </div>
   );
 }

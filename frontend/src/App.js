@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 import SignupPage from "./pages/signupPage/SignupPage.jsx";
 import LoginPage from "./pages/loginPage/LoginPage.jsx";
+import ProfilePage from "./pages/profilePage/ProfilePage.jsx";
 
 function App() {
   const [response, setResponse] = useState("");
@@ -32,6 +33,7 @@ function App() {
         <Routes>
           <Route path="/register" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
     </>
