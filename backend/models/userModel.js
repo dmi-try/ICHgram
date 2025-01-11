@@ -8,6 +8,7 @@ export const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minLength: 8 },
   fullname: { type: String },
+  bio: { type: String, default: "" },
 });
 
 userSchema.pre("save", async function (next) {
