@@ -5,6 +5,7 @@ import axios from "axios";
 import SignupPage from "./pages/signupPage/SignupPage.jsx";
 import LoginPage from "./pages/loginPage/LoginPage.jsx";
 import ProfilePage from "./pages/profilePage/ProfilePage.jsx";
+import EditProfile from "./pages/editProfilePage/EditProfilePage.jsx";
 
 function App() {
   const [response, setResponse] = useState("");
@@ -34,6 +35,7 @@ function App() {
           <Route path="/register" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
       </Router>
     </>
