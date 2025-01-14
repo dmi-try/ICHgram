@@ -1,14 +1,15 @@
 import express from "express";
-import {
-  getUsers,
-  getUser,
-  updateProfile,
-} from "../controllers/userController.js";
+import { getUsers, getUser } from "../controllers/userController.js";
+import { addFollow, deleteFollow } from "../controllers/followController.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
 
 router.get("/", getUsers);
-router.get("/profile", authMiddleware, getUser);
-router.patch("/profile", authMiddleware, updateProfile);
+
+router.get("/:id", getUser);
+
+router.post("/:id/follow", authMiddleware, addFollow);
+router.delete("/:id/follow", authMiddleware, deleteFollow);
 
 export default router;

@@ -1,8 +1,13 @@
 import User from "../models/userModel.js";
+import Post from "../models/postModel.js";
+import Follow from "../models/followModel.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find({}, "-password");
+    const { name } = req.query;
+    const query = name ? { name: { $regex: new RegExp(name, "i") } } : {};
+
+    const users = await User.find(query, "-password");
     res.status(200).json(users);
   } catch (error) {
     console.error("Error retrieving users:", error);
@@ -12,35 +17,15 @@ export const getUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user, "-password");
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const user = await User.findById(req.params.id, "-password");
+    user.posts = await Post.find({ userId: req.params.id });
+    user.followers = await Follow.find({ user: req.params.id }); // показывать не список, а количество документов
+    user.following = await Follow.find({ follower: req.params.id }); // аналогично предыдущему
+    // добавить поле инфо о наличиии/отсутствии подписки от залогиненного пользователя, чтобы
+    //знать какую кнопку отображать на клиенте
     res.status(200).json(user);
   } catch (error) {
-    console.error("Error loading the profile:", error);
-    res.status(500).json({ messaage: "Cannot load data" });
-  }
-};
-
-export const updateProfile = async (req, res) => {
-  try {
-    const updates = {};
-    if (req.body.username) updates.name = req.body.username;
-    if (req.body.fullname) updates.fullname = req.body.fullname;
-    if (req.body.bio) updates.bio = req.body.bio;
-
-    const user = await User.findByIdAndUpdate(req.user, updates, {
-      new: true,
-      runValidators: true,
-    }).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json({ message: "Profile updated", user });
-  } catch (error) {
-    console.error("Error updating the profile: ", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+    console.error("Error retrieving user:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
