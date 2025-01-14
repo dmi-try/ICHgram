@@ -17,11 +17,11 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 router.get("/", authMiddleware, getPosts);
-router.post("/", authMiddleware, addPost);
+router.post("/", authMiddleware, addPost); //+
 
-router.get("/:id", authMiddleware, getPost);
-router.patch("/:id", authMiddleware, updatePost);
-router.delete("/:id", authMiddleware, deletePost);
+router.get("/:id", authMiddleware, getPost); //+
+router.patch("/:id", authMiddleware, updatePost); //+
+router.delete("/:id", authMiddleware, deletePost); //+
 
 router.post("/:id/comments", authMiddleware, addComment);
 router.delete("/:id/comments/:commentId", authMiddleware, deleteComment);
