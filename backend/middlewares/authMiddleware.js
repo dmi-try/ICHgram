@@ -1,11 +1,22 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-  const token = req.header("Authorization").replace("Bearer ", "");
-  if (!token) {
+  const authHeader = req.header("Authorization");
+
+  if (!authHeader) {
     return res
       .status(401)
       .json({ message: "No token provided, authorization denied" });
+  }
+
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.replace("Bearer ", "")
+    : null;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "invalid token format, authorization denied" });
   }
 
   try {
