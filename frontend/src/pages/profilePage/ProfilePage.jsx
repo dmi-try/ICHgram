@@ -10,14 +10,11 @@ function ProfilePage() {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(
-          "http://localhost:3303/users/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:3303/auth/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setProfile(response.data);
       } catch (error) {
         console.error("Error fetching profile:", error.response?.data || error);

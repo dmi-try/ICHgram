@@ -17,14 +17,11 @@ const EditProfile = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(
-          "http://localhost:3303/users/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:3303/auth/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setFormData(response.data); // Установим начальные значения для формы
       } catch (error) {
         console.error("Error fetching profile:", error.response?.data || error);
@@ -44,7 +41,7 @@ const EditProfile = () => {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.patch("http://localhost:3303/users/profile", formData, {
+      await axios.patch("http://localhost:3303/auth/profile", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
