@@ -59,21 +59,28 @@ export const getPost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    post.comments = await Comment.find({ postId: req.params.id }).populate(
+    const comments = await Comment.find({ post: req.params.id }).populate(
       "user",
       "name"
     );
 
-    post.likeCount = await Like.countDocuments({
-      postId: req.params.id,
+    const likeCount = await Like.countDocuments({
+      post: req.params.id,
     });
 
-    post.isLiked = await Like.findOne({
-      postId: req.params.id,
-      userId: req.user,
-    });
+    const isLiked = !!(await Like.findOne({
+      post: req.params.id,
+      user: req.user,
+    }));
 
-    res.status(200).json(post);
+    const response = {
+      ...post.toJSON(),
+      comments,
+      likeCount,
+      isLiked,
+    };
+
+    res.status(200).json(response);
   } catch (error) {
     console.error("Error retrieving post:", error);
     res.status(500).json({ message: "Server error", error: error.message });
