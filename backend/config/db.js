@@ -7,11 +7,16 @@ export const connectDB = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("connected to ICHgramDB");
+    await mongoose.connect(process.env.MONGO_URI);
+  } catch (error) {
+    console.error("Failed to connect due: ", error);
+    process.exit(1);
+  }
+};
+
+export const closeDB = async () => {
+  try {
+    await mongoose.connection.close();
   } catch (error) {
     console.error("Failed to connect due: ", error);
     process.exit(1);
