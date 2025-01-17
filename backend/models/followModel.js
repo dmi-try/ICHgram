@@ -5,6 +5,8 @@ export const followSchema = new mongoose.Schema({
   follower: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
+followSchema.index({ user: 1, follower: 1 }, { unique: true });
+
 const Follow = mongoose.model("Follow", followSchema);
 
 export default Follow;
