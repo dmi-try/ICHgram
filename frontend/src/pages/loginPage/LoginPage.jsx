@@ -1,9 +1,13 @@
 import styles from "./LoginPage.module.css";
+import bannerImage from "../../assets/images/main_banner_image.jpg";
+import logo from "../../assets/images/ICHGRA 2.png";
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function LoginPage() {
+  const api = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL });
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,10 +22,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3303/auth/login",
-        formData
-      );
+      const response = await axios.post(`${api}/auth/login`, formData);
 
       // Сохраняем токен в localStorage
       const token = response.data.token;
@@ -40,29 +41,47 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+    <section className={styles.login_container}>
+      <picture className={styles.login_banner}>
+        <img src={bannerImage} alt="" />
+      </picture>
+
+      <div className={styles.login_info_container}>
+        <div className={styles.login_form_container}>
+          <picture className={styles.login_logo}>
+            <img src={logo} alt="" />
+          </picture>
+
+          <form className={styles.login_form} onSubmit={handleSubmit}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">Log in</button>
+          </form>
+          {message && <p>{message}</p>}
+
+          <div>
+            <Link to="">Forgot Password?</Link>
+          </div>
+        </div>
+        <p>
+          Dont have an account? <Link to="/register">Sign Up</Link>
+        </p>
+      </div>
+    </section>
   );
 }
 

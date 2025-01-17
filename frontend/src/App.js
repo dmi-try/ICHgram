@@ -23,22 +23,16 @@ function App() {
   }, []);
 
   return (
-    <>
-      <h2>Connection test</h2>
-      <p>{response}</p>
-
+    <main className="page_container">
       <Router>
-        <nav>
-          <Link to="/register">Register</Link> | <Link to="/login">Login</Link>
-        </nav>
         <Routes>
+          <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
       </Router>
-    </>
+    </main>
   );
 }
 
