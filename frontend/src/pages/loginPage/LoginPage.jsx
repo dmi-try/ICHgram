@@ -4,6 +4,8 @@ import logo from "../../assets/images/ICHGRA 2.png";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import Input from "../../components/input/Input.jsx";
+import Button from "../../components/button/Button.jsx";
 
 function LoginPage() {
   const api = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL });
@@ -12,6 +14,12 @@ function LoginPage() {
     email: "",
     password: "",
   });
+
+  const inputs = [
+    { name: "email", type: "text", placeholder: "Email" },
+    { name: "password", type: "password", placeholder: "Your password" },
+  ];
+
   const [message, setMessage] = useState("");
   const navigate = useNavigate(); // Хук для навигации
 
@@ -22,7 +30,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${api}/auth/login`, formData);
+      const response = await api.post("/auth/login", formData);
 
       // Сохраняем токен в localStorage
       const token = response.data.token;
@@ -51,9 +59,12 @@ function LoginPage() {
           <picture className={styles.login_logo}>
             <img src={logo} alt="" />
           </picture>
+          {/* <h3>
+            Sign up to share photos and videos <br /> with your friends
+          </h3> */}
 
           <form className={styles.login_form} onSubmit={handleSubmit}>
-            <input
+            {/* <input
               type="email"
               name="email"
               placeholder="Email"
@@ -68,8 +79,18 @@ function LoginPage() {
               value={formData.password}
               onChange={handleChange}
               required
-            />
-            <button type="submit">Log in</button>
+            /> */}
+            {inputs.map((elem) => (
+              <Input
+                key={elem.name}
+                name={elem.name}
+                type={elem.type}
+                placeholder={elem.placeholder}
+                value={formData[inputs.name] || ""}
+                onChange={handleChange}
+              />
+            ))}
+            <Button text="Log in" />
           </form>
           {message && <p>{message}</p>}
 
