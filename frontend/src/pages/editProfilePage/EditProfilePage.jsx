@@ -17,7 +17,7 @@ const EditProfile = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get("http://localhost:3303/auth/profile", {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -41,7 +41,7 @@ const EditProfile = () => {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.patch("http://localhost:3303/auth/profile", formData, {
+      await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/auth/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

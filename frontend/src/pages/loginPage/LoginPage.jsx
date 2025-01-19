@@ -86,7 +86,7 @@ function LoginPage() {
                 name={elem.name}
                 type={elem.type}
                 placeholder={elem.placeholder}
-                value={formData[inputs.name] || ""}
+                // value={formData[inputs.name] || ""}
                 onChange={handleChange}
               />
             ))}

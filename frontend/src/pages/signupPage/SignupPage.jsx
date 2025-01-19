@@ -18,7 +18,7 @@ function SignupPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3303/auth/register",
+        `${process.env.REACT_APP_BACKEND_URL}/auth/register`,
         formData
       );
       setMessage(response.data.message);
