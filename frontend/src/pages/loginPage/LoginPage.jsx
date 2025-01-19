@@ -93,13 +93,19 @@ function LoginPage() {
             <Button text="Log in" />
           </form>
           {message && <p>{message}</p>}
+          <p className={styles.login_form_divider}>OR</p>
 
           <div>
-            <Link to="">Forgot Password?</Link>
+            <Link to="" className={styles.login_forgot_pass}>
+              Forgot Password?
+            </Link>
           </div>
         </div>
-        <p>
-          Dont have an account? <Link to="/register">Sign Up</Link>
+        <p className={styles.login_sign_up_block}>
+          Dont have an account?
+          <Link to="/register" className={styles.login_to_sign_up}>
+            Sign Up
+          </Link>
         </p>
       </div>
     </section>
