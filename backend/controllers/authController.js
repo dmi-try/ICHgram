@@ -81,7 +81,7 @@ export const getProfile = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const updates = {};
-    if (req.body.username) updates.name = req.body.username;
+    if (req.body.name) updates.name = req.body.name;
     if (req.body.fullname) updates.fullname = req.body.fullname;
     if (req.body.bio) updates.bio = req.body.bio;
 

@@ -12,7 +12,7 @@ export const getPosts = async (req, res) => {
 
     if (explore) {
       // Если режим "исследования", получаем все посты
-      posts = await Post.find().populate("userId", "name");
+      posts = await Post.find().populate("user", "name");
     } else {
       // Ищем пользователей, которых фолловит текущий
       const users = await User.find({ followers: req.userId });
@@ -20,7 +20,7 @@ export const getPosts = async (req, res) => {
 
       // Получаем посты только этих пользователей
       posts = await Post.find({ userId: { $in: userIds } }).populate(
-        "userId",
+        "user",
         "name"
       );
     }
@@ -89,8 +89,8 @@ export const getPost = async (req, res) => {
 
 export const addPost = async (req, res) => {
   try {
-    const { img, text } = req.body;
-    const post = new Post({ photo: img, text, user: req.user });
+    const { photo, text } = req.body;
+    const post = new Post({ photo: photo, text, user: req.user });
     await post.save();
     res.status(201).json({ message: "Post has been added" });
   } catch (error) {

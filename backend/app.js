@@ -42,7 +42,7 @@ app.use((req, res) => {
 // Глобальная обработка ошибок
 app.use((err, req, res, next) => {
   console.error("Unexpected error: ", err);
-  res.status(500).json({ message: "Internal Server Error" });
+  res.status(500).json({ message: "Internal Server Error", error: err.message });
 });
 
 export default app;
