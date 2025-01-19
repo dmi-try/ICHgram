@@ -1,0 +1,14 @@
+.button_main {
+  min-height: 32px;
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+
+  background-color: #0095f6;
+
+  cursor: pointer;
+}

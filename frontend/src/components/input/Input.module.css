@@ -1,0 +1,15 @@
+.form_input {
+  padding: 8px 12px;
+
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+
+  background-color: #fafafa;
+}
+
+.form_input::placeholder {
+  font-size: 12px;
+  font-weight: 400;
+
+  color: #737373;
+}
