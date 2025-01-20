@@ -36,34 +36,6 @@
   width: 100%;
 }
 
-.login_form_divider {
-  position: relative;
-
-  margin-top: 16px;
-  margin-bottom: 64px;
-
-  padding: 8px 18px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #737373;
-
-  background-color: #fff;
-}
-
-.login_form_divider::after {
-  position: absolute;
-  z-index: -1;
-
-  top: 50%;
-  right: -100px;
-
-  content: "";
-  width: 260px;
-  height: 1px;
-
-  background-color: #dbdbdb;
-}
-
 .login_forgot_pass {
   color: #00376b;
   font-size: 12px;
@@ -72,6 +44,8 @@
 .login_sign_up_block {
   padding: 24px 40px;
   border: 1px solid #dbdbdb;
+
+  font-size: 14px;
 }
 
 .login_to_sign_up {

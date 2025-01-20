@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Input from "../../components/input/Input.jsx";
 import Button from "../../components/button/Button.jsx";
+import Divider from "../../components/divider/Divider.jsx";
 
 function LoginPage() {
   const api = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL });
@@ -59,27 +60,8 @@ function LoginPage() {
           <picture className={styles.login_logo}>
             <img src={logo} alt="" />
           </picture>
-          {/* <h3>
-            Sign up to share photos and videos <br /> with your friends
-          </h3> */}
 
           <form className={styles.login_form} onSubmit={handleSubmit}>
-            {/* <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            /> */}
             {inputs.map((elem) => (
               <Input
                 key={elem.name}
@@ -93,8 +75,7 @@ function LoginPage() {
             <Button text="Log in" />
           </form>
           {message && <p>{message}</p>}
-          <p className={styles.login_form_divider}>OR</p>
-
+          <Divider />
           <div>
             <Link to="" className={styles.login_forgot_pass}>
               Forgot Password?
