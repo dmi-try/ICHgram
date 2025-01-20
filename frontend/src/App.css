@@ -5,6 +5,8 @@
 
   text-decoration: none;
   color: black;
+
+  list-style-type: none;
 }
 
 .page_container {

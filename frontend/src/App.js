@@ -18,7 +18,7 @@ function App() {
   return (
     <main className="page_container">
       <Router>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to="/">Feed</Link>
@@ -39,7 +39,7 @@ function App() {
               <Link to="/posts/add">Add Post</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
 
         <Routes>
           <Route path="/" element={<FeedPage />} />
