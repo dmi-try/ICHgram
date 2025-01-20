@@ -10,11 +10,14 @@ function PostPage() {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/posts/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setPost(response.data);
       } catch (error) {
         console.error("Error fetching post: ", error.response?.data || error);
@@ -25,7 +28,7 @@ function PostPage() {
   }, []);
 
   return (
-    <div>
+    <section>
       <h1>Post Page</h1>
       <ul>
         <li>ID: {post._id}</li>
@@ -33,7 +36,7 @@ function PostPage() {
         <li>Photo: {post.photo}</li>
         <li>Text: {post.text}</li>
       </ul>
-    </div>
+    </section>
   );
 }
 

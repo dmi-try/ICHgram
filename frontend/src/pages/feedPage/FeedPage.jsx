@@ -9,11 +9,14 @@ function FeedPage() {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/posts/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts: ", error.response?.data || error);
@@ -24,7 +27,7 @@ function FeedPage() {
   }, []);
 
   return (
-    <div>
+    <section>
       <h1>Feed Page</h1>
       <ul>
         {posts.map((post) => (
@@ -33,7 +36,7 @@ function FeedPage() {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 

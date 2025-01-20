@@ -31,13 +31,15 @@ function AddPostPage() {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Text:</label>
-        <textarea value={text} onChange={handleChange} />
-      </div>
-      <button type="submit">Add Post</button>
-    </form>
+    <section>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Text:</label>
+          <textarea value={text} onChange={handleChange} />
+        </div>
+        <button type="submit">Add Post</button>
+      </form>
+    </section>
   );
 }
 

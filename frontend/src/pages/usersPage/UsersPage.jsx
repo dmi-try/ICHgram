@@ -9,11 +9,14 @@ function UsersPage() {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users: ", error.response?.data || error);
@@ -24,7 +27,7 @@ function UsersPage() {
   }, []);
 
   return (
-    <div>
+    <section>
       <h1>Users Page</h1>
       <ul>
         {users.map((user) => (
@@ -33,7 +36,7 @@ function UsersPage() {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 

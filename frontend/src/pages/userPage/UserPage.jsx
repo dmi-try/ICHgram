@@ -21,7 +21,7 @@ function UserPage() {
     } catch (error) {
       console.error("Error following user:", error.response?.data || error);
     }
-  }
+  };
   const handleUnfollow = async () => {
     const token = localStorage.getItem("token");
 
@@ -37,17 +37,20 @@ function UserPage() {
     } catch (error) {
       console.error("Error unfollowing user:", error.response?.data || error);
     }
-  }
+  };
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/users/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user: ", error.response?.data || error);
@@ -58,7 +61,7 @@ function UserPage() {
   }, []);
 
   return (
-    <div>
+    <section>
       <h1>User Page</h1>
       <ul>
         <li>ID: {user._id}</li>
@@ -66,9 +69,12 @@ function UserPage() {
         <li>Email: {user.email}</li>
         <li>Full Name: {user.fullname}</li>
         <li>Bio: {user.bio}</li>
-        <li><button onClick={handleFollow}>Follow</button> <button onClick={handleUnfollow}>Unfollow</button></li>
+        <li>
+          <button onClick={handleFollow}>Follow</button>{" "}
+          <button onClick={handleUnfollow}>Unfollow</button>
+        </li>
       </ul>
-    </div>
+    </section>
   );
 }
 
