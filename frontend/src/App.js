@@ -12,13 +12,15 @@ import AddPostPage from "./pages/addPostPage/AddPostPage.jsx";
 import FeedPage from "./pages/feedPage/FeedPage.jsx";
 import PostPage from "./pages/postPage/PostPage.jsx";
 
+import Layout from "./components/layout/Layout.js";
+
 import "./App.css";
 
 function App() {
   return (
-    <main className="page_container">
-      <Router>
-        {/* <nav>
+    // <main className="page_container">
+    <Router>
+      {/* <nav>
           <ul>
             <li>
               <Link to="/">Feed</Link>
@@ -41,20 +43,23 @@ function App() {
           </ul>
         </nav> */}
 
-        <Routes>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<SignupPage />} />
+
+        <Route element={<Layout />}>
           <Route path="/" element={<FeedPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<SignupPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserPage />} />
           <Route path="/posts/add" element={<AddPostPage />} />
           <Route path="/posts/:id" element={<PostPage />} />
-          <Route path="*" element={<h1>Page not found</h1>} />
-        </Routes>
-      </Router>
-    </main>
+        </Route>
+        <Route path="*" element={<h1>Page not found</h1>} />
+      </Routes>
+    </Router>
+    // </main>
   );
 }
 
