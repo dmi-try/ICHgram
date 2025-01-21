@@ -1,0 +1,5 @@
+.user_info_container {
+  display: flex;
+  gap: 4px;
+  outline: 1px solid green;
+}
