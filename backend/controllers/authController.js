@@ -105,6 +105,7 @@ export const deleteProfile = async (req, res) => {
     await Comment.deleteMany({ user: req.user });
     await Like.deleteMany({ user: req.user });
     await Follow.deleteMany({ user: req.user });
+    await Follow.deleteMany({ follower: req.user });
     await User.findByIdAndDelete(req.user);
     res.json({ message: "User has been successfully deleted" });
   } catch (error) {
