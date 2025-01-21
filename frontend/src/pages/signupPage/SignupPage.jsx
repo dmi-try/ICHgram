@@ -1,6 +1,6 @@
 import styles from "./SignupPage.module.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import Button from "../../components/button/Button.jsx";
@@ -20,6 +20,7 @@ function SignupPage() {
     { name: "password", type: "password", placeholder: "Your password" },
     { name: "fullname", type: "text", placeholder: "Full name" },
   ];
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,6 +34,7 @@ function SignupPage() {
         formData
       );
       setMessage(response.data.message);
+      navigate("/login");
     } catch (error) {
       setMessage(
         error.response?.data?.message || "An error occurred during registration"
