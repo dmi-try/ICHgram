@@ -1,0 +1,8 @@
+.explore_posts_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 400px);
+  grid-gap: 40px;
+}
+
+.explore_posts_container li {
+}
