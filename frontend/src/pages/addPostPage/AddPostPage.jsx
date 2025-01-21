@@ -32,6 +32,7 @@ function AddPostPage() {
   };
   return (
     <section>
+      <h1>Add post</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Text:</label>
