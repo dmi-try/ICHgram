@@ -7,28 +7,30 @@ import styles from "./ExplorePage.module.css";
 function ExplorePage() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const token = localStorage.getItem("token");
 
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/posts/?explore=true`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setPosts(response.data);
-      } catch (error) {
-        if (error.response?.status === 401) {
-          navigate("/login");
+  const fetchPosts = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/?explore=true`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        console.error("Error fetching posts: ", error.response?.data || error);
+      );
+      setPosts(response.data);
+      console.log(response.data);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        navigate("/login");
       }
-    };
+      console.error("Error fetching posts: ", error.response?.data || error);
+    }
+  };
 
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -45,13 +47,7 @@ function ExplorePage() {
           },
         }
       );
-      setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post._id === postId
-            ? { ...post, isLiked: true, likeCount: post.likeCount + 1 }
-            : post
-        )
-      );
+      fetchPosts();
     } catch (error) {
       console.error("Error liking post: ", error.response?.data || error);
     }
@@ -69,13 +65,7 @@ function ExplorePage() {
           },
         }
       );
-      setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post._id === postId
-            ? { ...post, isLiked: false, likeCount: post.likeCount - 1 }
-            : post
-        )
-      );
+      fetchPosts();
     } catch (error) {
       console.error("Error unliking post: ", error.response?.data || error);
     }
