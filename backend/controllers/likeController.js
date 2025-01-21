@@ -2,7 +2,7 @@ import Like from "../models/likeModel.js";
 
 export const addLike = async (req, res) => {
   try {
-    const { postId } = req.body;
+    const postId = req.params.id;
 
     const ifLiked = await Like.findOne({ post: postId, user: req.user });
     if (ifLiked) {
@@ -21,7 +21,7 @@ export const addLike = async (req, res) => {
 
 export const deleteLike = async (req, res) => {
   try {
-    const { postId } = req.body;
+    const postId = req.params.id;
 
     if (!postId) {
       return res.status(400).json({ message: "Post ID is required" });

@@ -3,7 +3,8 @@ import Comment from "../models/commentModel.js";
 
 export async function addComment(req, res) {
   try {
-    const { text, postId } = req.body;
+    const postId = req.params.id;
+    const { text } = req.body;
     if (!text || !postId) {
       return res.status(400).json({ message: "Post ID and text are required" });
     }
