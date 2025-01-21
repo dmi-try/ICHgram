@@ -40,8 +40,7 @@ function LoginPage() {
       // Устанавливаем сообщение о успешном логине
       setMessage("Login successful!");
 
-      // Перенаправляем на страницу профиля
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       setMessage(
         error.response?.data?.message || "An error occurred during login"
