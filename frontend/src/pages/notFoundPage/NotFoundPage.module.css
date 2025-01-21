@@ -1,0 +1,24 @@
+.not_found_container {
+  display: flex;
+}
+
+.content_container {
+  display: flex;
+  margin: 0 auto;
+}
+
+.not_found_text_content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  max-width: 625px;
+
+  text-align: left;
+}
+
+.not_found_text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #737373;
+}
