@@ -5,12 +5,12 @@ import MenuItem from "../menuItem/MenuItem.jsx";
 import logo from "../../assets/icons/menu_logo_small.svg";
 
 const menuOptions = [
-  { id: "explore", text: "Explore", link: "/posts/explore" },
+  { id: "explore", text: "Explore", link: "/explore" },
   { id: "home", text: "Home", link: "/" },
   { id: "messages", text: "Messages", link: "/messages" },
   { id: "notifications", text: "Notifications", link: "/notifications" },
-  { id: "search", text: "Search", link: "/users" },
-  { id: "create", text: "Create", link: "/posts/add" },
+  { id: "search", text: "Search", link: "/search" },
+  { id: "create", text: "Create", link: "/add" },
   { id: "profile", text: "Profile", link: "/profile" },
 ];
 
