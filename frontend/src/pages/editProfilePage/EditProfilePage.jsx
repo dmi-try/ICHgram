@@ -58,9 +58,27 @@ const EditProfile = () => {
       console.error("Error updating profile:", error.response?.data || error);
     }
   };
+  const handleDelete = async (e) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting profile:", error.response?.data || error);
+    }
+  };
 
   return (
     <section>
+      <h1>Edit profile</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
@@ -99,6 +117,7 @@ const EditProfile = () => {
         </div>
         <button type="submit">Save Changes</button>
       </form>
+      <button onClick={handleDelete}>Delete profile</button>
     </section>
   );
 };
