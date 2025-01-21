@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 
-const authMiddleware = (req, res, next) => {
+import User from "../models/userModel.js";
+
+const authMiddleware = async (req, res, next) => {
   const authHeader = req.header("Authorization");
 
   if (!authHeader) {
@@ -22,6 +24,11 @@ const authMiddleware = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.userId;
+    const user = await User.findById(req.user, "-password");
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized: user is gone" });
+    }
+
 
     next();
   } catch (error) {
