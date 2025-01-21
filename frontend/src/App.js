@@ -21,31 +21,7 @@ import "./App.css";
 
 function App() {
   return (
-    // <main className="page_container">
     <Router>
-      {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Feed</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/posts/add">Add Post</Link>
-            </li>
-          </ul>
-        </nav> */}
-
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<SignupPage />} />
@@ -64,7 +40,6 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    // </main>
   );
 }
 

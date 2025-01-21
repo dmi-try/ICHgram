@@ -10,10 +10,15 @@
 }
 
 section {
+  padding: 32px;
   width: calc(100vw - 244px);
   max-width: 1196px;
 }
 
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
 /* .page_container {
   display: flex;
   justify-content: center;
