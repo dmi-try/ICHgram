@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function FeedPage() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
@@ -19,6 +20,9 @@ function FeedPage() {
         );
         setPosts(response.data);
       } catch (error) {
+        if (error.response?.status === 401) {
+          navigate("/login");
+        }    
         console.error("Error fetching posts: ", error.response?.data || error);
       }
     };
