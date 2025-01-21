@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./ProfilePage.module.css";
 
 function ProfilePage() {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -21,6 +22,9 @@ function ProfilePage() {
         );
         setProfile(response.data);
       } catch (error) {
+        if (error.response?.status === 401) {
+          navigate("/login");
+        }    
         console.error("Error fetching profile:", error.response?.data || error);
       }
     };
@@ -28,9 +32,9 @@ function ProfilePage() {
     fetchProfile();
   }, []);
 
-  if (!profile) {
-    return <p>Loading profile...</p>;
-  }
+  // if (!profile) {
+  //   return <p>Loading profile...</p>;
+  // }
 
   return (
     <section>
