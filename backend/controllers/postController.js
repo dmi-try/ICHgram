@@ -1,11 +1,12 @@
 import Post from "../models/postModel.js";
 import User from "../models/userModel.js";
 import Like from "../models/likeModel.js";
+import Follow from "../models/followModel.js";
 import Comment from "../models/commentModel.js";
 
 export const getPosts = async (req, res) => {
   try {
-    const user = req.query.user;
+    const user = req.user;
     const explore = req.query.explore || !user;
 
     let posts;
@@ -15,11 +16,11 @@ export const getPosts = async (req, res) => {
       posts = await Post.find().populate("user", "name");
     } else {
       // Ищем пользователей, которых фолловит текущий
-      const users = await User.find({ followers: req.userId });
-      const userIds = users.map((user) => user._id);
+      const follows = await Follow.find({ follower: req.user });
+      const userIds = follows.map((follow) => follow.user);
 
       // Получаем посты только этих пользователей
-      posts = await Post.find({ userId: { $in: userIds } }).populate(
+      posts = await Post.find({ user: { $in: userIds } }).populate(
         "user",
         "name"
       );
@@ -122,7 +123,7 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-await Comment.deleteMany({ post: req.params.id });
+    await Comment.deleteMany({ post: req.params.id });
     await Like.deleteMany({ post: req.params.id });
     const post = await Post.findOneAndDelete({
       _id: req.params.id,
