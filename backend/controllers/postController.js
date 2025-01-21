@@ -122,6 +122,8 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
+await Comment.deleteMany({ post: req.params.id });
+    await Like.deleteMany({ post: req.params.id });
     const post = await Post.findOneAndDelete({
       _id: req.params.id,
       user: req.user, // Проверяем, что пост принадлежит текущему пользователю
