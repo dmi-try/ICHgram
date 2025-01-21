@@ -30,11 +30,11 @@ export const getPosts = async (req, res) => {
     const updatedPosts = await Promise.all(
       posts.map(async (post) => {
         const isLiked = await Like.findOne({
-          postId: post._id,
-          userId: req.userId,
+          post: post._id,
+          user: req.user,
         });
-        const commentCount = await Comment.countDocuments({ postId: post._id });
-        const likeCount = await Like.countDocuments({ postId: post._id });
+        const commentCount = await Comment.countDocuments({ post: post._id });
+        const likeCount = await Like.countDocuments({ post: post._id });
 
         return {
           ...post.toJSON(),
@@ -60,6 +60,12 @@ export const getPost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
+    const user = { _id: post.user._id, name: post.user.name };
+    user.isMe = post.user._id.equals(req.user);
+    user.isFollowing = !!(await Follow.findOne({
+      user: post.user._id,
+      follower: req.user,
+    }));
     const comments = await Comment.find({ post: req.params.id }).populate(
       "user",
       "name"
@@ -79,6 +85,7 @@ export const getPost = async (req, res) => {
       comments,
       likeCount,
       isLiked,
+      user,
     };
 
     res.status(200).json(response);
