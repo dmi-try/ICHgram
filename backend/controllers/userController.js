@@ -32,12 +32,15 @@ export const getUser = async (req, res) => {
       follower: req.user,
     });
 
+    const isMe = req.user === req.params.id;
+
     res.status(200).json({
       ...user,
       posts,
       followersCount,
       followingCount,
       isFollowing: !!isFollowing,
+      isMe,
     });
   } catch (error) {
     console.error("Error retrieving user:", error);
