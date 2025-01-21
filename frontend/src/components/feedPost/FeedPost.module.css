@@ -1,0 +1,12 @@
+.post_container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.post_likes_comments {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
