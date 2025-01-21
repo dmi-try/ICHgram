@@ -22,7 +22,7 @@ function FeedPage() {
       } catch (error) {
         if (error.response?.status === 401) {
           navigate("/login");
-        }    
+        }
         console.error("Error fetching posts: ", error.response?.data || error);
       }
     };
