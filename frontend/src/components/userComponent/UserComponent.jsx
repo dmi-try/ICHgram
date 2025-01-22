@@ -1,5 +1,5 @@
 import styles from "./UserComponent.module.css";
-import userPlaceholder from "../../assets/images/menu_profile_img_small.png";
+import userPlaceholder from "../../assets/icons/post_author_icon.svg";
 import { Link } from "react-router-dom";
 
 function UserComponent({ user, onFollow, onUnfollow }) {
