@@ -13,3 +13,7 @@
 
   color: #737373;
 }
+
+.form_input:focus-visible {
+  outline: 1px solid #dbdbdb;
+}

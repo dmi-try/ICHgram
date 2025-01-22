@@ -1,0 +1,57 @@
+.edit_profile_page h1 {
+  font-size: 20px;
+}
+
+.form_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.edit_profile_form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  margin: 0 auto;
+  max-width: 610px;
+}
+
+.input_label {
+  width: 100%;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  text-align: left;
+}
+
+.input_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  width: 100%;
+}
+
+.input_wrapper input {
+  width: 100%;
+  min-height: 42px;
+  border-radius: 12px;
+}
+
+.edit_profile_form button {
+  width: 50%;
+}
+
+.delete_button {
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ed4956;
+
+  cursor: pointer;
+}

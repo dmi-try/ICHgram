@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/button/Button.jsx";
+import Input from "../../components/input/Input.jsx";
+import styles from "./EditProfilePage.module.css";
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({
@@ -62,14 +65,11 @@ const EditProfile = () => {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/auth/profile`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       navigate("/");
     } catch (error) {
       console.error("Error deleting profile:", error.response?.data || error);
@@ -77,47 +77,41 @@ const EditProfile = () => {
   };
 
   return (
-    <section>
-      <h1>Edit profile</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
+    <section className={styles.edit_profile_page}>
+      <form onSubmit={handleSubmit} className={styles.edit_profile_form}>
+        <div className={styles.form_header}>
+          <h1>Edit profile</h1>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className={styles.delete_button}
+          >
+            Delete profile
+          </button>
         </div>
-        <div>
-          <label>Full Name:</label>
-          <input
-            type="text"
-            name="fullname"
-            value={formData.fullname}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Bio:</label>
-          <textarea
-            name="bio"
-            value={formData.bio}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <button type="submit">Save Changes</button>
+
+        {Object.entries(
+          Object.fromEntries(
+            Object.entries(formData).filter(
+              ([key]) => key !== "_id" && key !== "__v"
+            )
+          )
+        ).map(([key, value]) => (
+          <div key={key} className={styles.input_wrapper}>
+            <label htmlFor={key} className={styles.input_label}>
+              {key.charAt(0).toUpperCase() + key.slice(1)}:
+            </label>
+            <Input
+              type={key === "email" ? "email" : "text"}
+              name={key}
+              value={value}
+              onChange={handleChange}
+            />
+          </div>
+        ))}
+        {/* <button type="submit">Save Changes</button> */}
+        <Button type={"submit"} text={"Save"} />
       </form>
-      <button onClick={handleDelete}>Delete profile</button>
     </section>
   );
 };
