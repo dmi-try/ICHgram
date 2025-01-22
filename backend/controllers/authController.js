@@ -6,6 +6,8 @@ import Like from "../models/likeModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+import mongoose from "mongoose";
+
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, fullname } = req.body;
@@ -68,10 +70,49 @@ export const getProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    user.posts = await Post.find({ user: req.user });
-    user.followers = await Follow.find({ user: req.user });
-    user.following = await Follow.find({ follower: req.user });
-    res.status(200).json(user);
+    const posts = await Post.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req.user),
+        },
+      },
+      {
+        $lookup: {
+          from: "likes",
+          localField: "_id",
+          foreignField: "post",
+          as: "likes",
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "post",
+          as: "comments",
+        },
+      },
+      {
+        $addFields: {
+          likeCount: { $size: "$likes" },
+          commentCount: { $size: "$comments" },
+        },
+      },
+      {
+        $project: {
+          likes: 0,
+          comments: 0,
+        },
+      },
+    ]);
+    const followers = await Follow.find({ user: req.user });
+    const following = await Follow.find({ follower: req.user });
+    res.status(200).json({
+      ...user.toJSON(),
+      posts,
+      followers,
+      following,
+    });
   } catch (error) {
     console.error("Error loading the profile:", error);
     res.status(500).json({ messaage: "Cannot load data" });
