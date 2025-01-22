@@ -1,0 +1,45 @@
+.add_comment_container {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 24px 1fr min-content;
+  gap: 8px;
+  align-items: start;
+
+  padding: 20px 14px;
+
+  border-top: 1px solid #dbdbdb;
+}
+
+.add_comment_button {
+  margin-top: 4px;
+  border: none;
+  color: #0095f6;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: transparent;
+}
+
+textarea {
+  padding: 4px 8px;
+  min-height: 32px;
+  max-width: 450px;
+  border: none;
+  border-radius: 4px;
+
+  font-family: "Roboto", Helvetica, sans-serif;
+}
+
+textarea::-webkit-resizer {
+  display: none;
+}
+
+textarea::placeholder {
+  font-family: "Roboto", Helvetica, sans-serif;
+  color: #737373;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+textarea:focus-visible {
+  outline: 1px solid #dbdbdb;
+}
