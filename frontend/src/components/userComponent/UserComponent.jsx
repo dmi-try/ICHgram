@@ -26,7 +26,7 @@ function UserComponent({ user, onFollow, onUnfollow }) {
               Following
             </button>
           ) : (
-            <button className={styles.follow_button} onClick={onFollow}>
+            <button className={styles.following_button} onClick={onFollow}>
               Follow
             </button>
           )}

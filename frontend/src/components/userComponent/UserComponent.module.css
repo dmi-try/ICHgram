@@ -1,5 +1,33 @@
 .user_info_container {
   display: flex;
-  gap: 4px;
-  outline: 1px solid green;
+  align-items: center;
+  gap: 14px;
+
+  padding: 12px 14px;
+
+  /* border-bottom: 1px solid #efefef;
+  border-radius: 4px; */
+}
+
+picture img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.username_link {
+  font-weight: 600;
+  color: #262626;
+}
+
+.following_button {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+
+  color: #0095f6;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
 }
