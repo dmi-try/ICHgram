@@ -1,0 +1,23 @@
+.text_container {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+}
+
+.username_link {
+  justify-self: left;
+
+  font-weight: 600;
+  color: #262626;
+}
+
+.text {
+  grid-column: span 2;
+
+  padding: 0 54px;
+
+  text-align: left;
+  font-size: 12px;
+}

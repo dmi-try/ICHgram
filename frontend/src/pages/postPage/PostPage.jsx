@@ -6,6 +6,7 @@ import postImg from "../../assets/images/post_img.jpg";
 import LikeCounter from "../../components/likeCounter/LikeCounter.jsx";
 import CommentCounter from "../../components/commentCounter/CommentCounter.jsx";
 import UserComponent from "../../components/userComponent/UserComponent.jsx";
+import PostContent from "../../components/postContents/PostContent.jsx";
 
 function PostPage() {
   const [post, setPost] = useState([]);
@@ -150,9 +151,7 @@ function PostPage() {
           onFollow={handleFollow}
           onUnfollow={handleUnfollow}
         />
-        {/* <div>ID: {post._id}</div> */}
-        {/* <div>User: {post.user?.name}</div> */}
-        <div>Text: {post.text}</div>
+        <PostContent text={post.text} user={post.user} />
         <LikeCounter
           likes={post.likeCount}
           isLiked={post.isLiked}
@@ -163,10 +162,6 @@ function PostPage() {
           <Link to={`/posts/${post._id}/edit`}>Edit</Link>{" "}
           <button onClick={handleDeletePost}>Delete post</button>
         </div>
-        {/* <p>
-        <button onClick={handleLike}>Like!</button>
-        <button onClick={handleUnlike}>Unlike!</button>
-      </p> */}
         <div>
           Comments:{" "}
           {post.comments?.map((comment) => (
