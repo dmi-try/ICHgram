@@ -7,6 +7,7 @@ import LikeCounter from "../../components/likeCounter/LikeCounter.jsx";
 import CommentCounter from "../../components/commentCounter/CommentCounter.jsx";
 import UserComponent from "../../components/userComponent/UserComponent.jsx";
 import PostContent from "../../components/postContents/PostContent.jsx";
+import Comment from "../../components/commentComponent/Comment.jsx";
 
 function PostPage() {
   const [post, setPost] = useState([]);
@@ -163,11 +164,13 @@ function PostPage() {
           <button onClick={handleDeletePost}>Delete post</button>
         </div>
         <div>
-          Comments:{" "}
+          {/* Comments:{" "} */}
           {post.comments?.map((comment) => (
-            <p key={comment._id}>
-              {comment.user?.name}: {comment.text}
-            </p>
+            <Comment
+              key={comment._id}
+              user={comment.user}
+              text={comment.text}
+            ></Comment>
           ))}
         </div>
 
