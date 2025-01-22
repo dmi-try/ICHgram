@@ -8,10 +8,11 @@ import CommentCounter from "../../components/commentCounter/CommentCounter.jsx";
 import UserComponent from "../../components/userComponent/UserComponent.jsx";
 import PostContent from "../../components/postContents/PostContent.jsx";
 import Comment from "../../components/commentComponent/Comment.jsx";
+import AddComment from "../../components/addComment/AddComment.jsx";
 
 function PostPage() {
   const [post, setPost] = useState([]);
-  const [newComment, setNewComment] = useState("");
+  // const [newComment, setNewComment] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const fetchPost = async () => {
@@ -35,7 +36,7 @@ function PostPage() {
   useEffect(() => {
     fetchPost();
   }, []);
-  const handleNewComment = async () => {
+  const handleNewComment = async (newComment) => {
     const token = localStorage.getItem("token");
 
     try {
@@ -48,7 +49,6 @@ function PostPage() {
           },
         }
       );
-      setNewComment("");
       fetchPost();
     } catch (error) {
       console.error("Error adding comment:", error.response?.data || error);
@@ -153,18 +153,23 @@ function PostPage() {
           onUnfollow={handleUnfollow}
         />
         <PostContent text={post.text} user={post.user} />
-        <LikeCounter
-          likes={post.likeCount}
-          isLiked={post.isLiked}
-          onLike={handleLike}
-          onUnlike={handleUnlike}
-        />
-        <div>
-          <Link to={`/posts/${post._id}/edit`}>Edit</Link>{" "}
-          <button onClick={handleDeletePost}>Delete post</button>
+        <div className={styles.post_actions}>
+          <LikeCounter
+            likes={post.likeCount}
+            isLiked={post.isLiked}
+            onLike={handleLike}
+            onUnlike={handleUnlike}
+          />
+          {post.user?.isMe ? (
+            <div className={styles.post_editing}>
+              <Link to={`/posts/${post._id}/edit`}>Edit</Link>{" "}
+              <button onClick={handleDeletePost}>Delete post</button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div>
-          {/* Comments:{" "} */}
           {post.comments?.map((comment) => (
             <Comment
               key={comment._id}
@@ -172,14 +177,8 @@ function PostPage() {
               text={comment.text}
             ></Comment>
           ))}
+          <AddComment onClick={handleNewComment} />
         </div>
-
-        <textarea
-          placeholder="Add comment"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-        <button onClick={handleNewComment}>Add comment</button>
       </div>
     </section>
   );

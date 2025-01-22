@@ -2,13 +2,15 @@
   display: grid;
   grid-template-columns: 40px 1fr;
   align-items: center;
-  gap: 14px;
+  column-gap: 14px;
   padding: 12px 14px;
 }
 
-.username_link {
+.user_info_text {
   justify-self: left;
+}
 
+.username_link {
   font-weight: 600;
   color: #262626;
 }

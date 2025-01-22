@@ -1,3 +1,39 @@
 .post_container {
   display: flex;
 }
+
+.post_contents {
+  display: grid;
+  grid-auto-rows: min-content;
+}
+
+.post_actions {
+  display: flex;
+  align-items: center;
+
+  padding: 4px 0 4px 72px;
+}
+
+.post_editing {
+  display: flex;
+  gap: 16px;
+
+  margin-left: auto;
+}
+
+.post_editing button {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: #ed4956;
+}
+
+.post_editing button,
+.post_editing a {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.post_editing a {
+  color: #0095f6;
+}
