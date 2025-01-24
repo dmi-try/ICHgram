@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 import User from "../models/userModel.js";
 import Post from "../models/postModel.js";
 import Follow from "../models/followModel.js";
@@ -21,7 +23,41 @@ export const getUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const posts = await Post.find({ user: req.params.id });
+    const posts = await Post.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $lookup: {
+          from: "likes",
+          localField: "_id",
+          foreignField: "post",
+          as: "likes",
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "post",
+          as: "comments",
+        },
+      },
+      {
+        $addFields: {
+          likeCount: { $size: "$likes" },
+          commentCount: { $size: "$comments" },
+        },
+      },
+      {
+        $project: {
+          likes: 0,
+          comments: 0,
+        },
+      },
+    ]);
     const followersCount = await Follow.countDocuments({ user: req.params.id });
     const followingCount = await Follow.countDocuments({
       follower: req.params.id,
