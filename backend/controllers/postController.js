@@ -6,7 +6,7 @@ import Comment from "../models/commentModel.js";
 
 export const getPosts = async (req, res) => {
   try {
-    const explore = req.query.explore || !user;
+    const explore = req.query.explore || !req.user;
 
     let posts;
 
@@ -40,13 +40,13 @@ export const getPosts = async (req, res) => {
           user: post.user._id,
           follower: req.user,
         }));
-    
+
         return {
           ...post.toJSON(),
           isLiked: !!isLiked,
           commentCount,
           likeCount,
-          user
+          user,
         };
       })
     );
@@ -111,7 +111,11 @@ export const addPost = async (req, res) => {
     const imageBase64 = imageBuffer.toString("base64");
 
     const { text } = req.body;
-    const post = new Post({ photo: `data:image/jpeg;base64,${imageBase64}`, text, user: req.user });
+    const post = new Post({
+      photo: `data:image/jpeg;base64,${imageBase64}`,
+      text,
+      user: req.user,
+    });
     await post.save();
     res.status(201).json({ message: "Post has been added", post: post });
   } catch (error) {
@@ -134,7 +138,7 @@ export const updatePost = async (req, res) => {
         .status(404)
         .json({ message: "Post not found or unauthorized" });
     }
-    res.status(200).json({ message: "Post has been updated" , post: post});
+    res.status(200).json({ message: "Post has been updated", post: post });
   } catch (error) {
     console.error("Error updating post:", error);
     res.status(500).json({ message: "Server error", error: error.message });

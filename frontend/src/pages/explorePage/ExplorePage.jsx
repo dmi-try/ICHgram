@@ -79,7 +79,12 @@ function ExplorePage() {
             {/* <Link to={`/posts/${post._id}`}>
               {post._id}
             </Link> */}
-            <FeedPost post={post} onLike={handleLike} onUnlike={handleUnlike} />
+            <FeedPost
+              post={post}
+              onLike={handleLike}
+              onUnlike={handleUnlike}
+              refreshData={fetchPosts}
+            />
           </li>
         ))}
       </ul>

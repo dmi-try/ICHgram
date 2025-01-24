@@ -4,8 +4,12 @@
   align-items: center;
 }
 
+.post_img {
+  width: 577px;
+}
+
 .post_img img {
-  width: 300px;
+  width: 100%;
 }
 
 .post_likes_comments {

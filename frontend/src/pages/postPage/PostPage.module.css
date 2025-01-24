@@ -2,6 +2,14 @@
   display: flex;
 }
 
+.post_img {
+  width: 577px;
+}
+
+.post_img img {
+  width: 100%;
+}
+
 .post_contents {
   display: grid;
   grid-auto-rows: min-content;
