@@ -24,6 +24,10 @@ function UserPage() {
         }
       );
       setUser(response.data);
+      console.log("User fetched: ", response.data);
+      if (response.data.isMe) {
+        navigate('/profile');
+      }
     } catch (error) {
       console.error("Error fetching user: ", error.response?.data || error);
     }
