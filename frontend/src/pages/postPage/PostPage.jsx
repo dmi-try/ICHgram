@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import styles from "./PostPage.module.css";
-import postImg from "../../assets/images/post_img.jpg";
 import LikeCounter from "../../components/likeCounter/LikeCounter.jsx";
 import CommentCounter from "../../components/commentCounter/CommentCounter.jsx";
 import UserComponent from "../../components/userComponent/UserComponent.jsx";
@@ -143,7 +142,7 @@ function PostPage() {
   return (
     <section className={styles.post_container}>
       <picture>
-        <img src={postImg} alt="" />
+        <img src={post.photo} alt="" />
         {/* <div>Photo: {post.photo}</div> */}
       </picture>
       <div className={styles.post_contents}>

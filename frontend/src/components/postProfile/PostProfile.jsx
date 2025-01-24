@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styles from "./PostProfile.module.css";
-import postImg from "../../assets/images/profile_posts_card_1.jpg";
 import LikeCounter from "../likeCounter/LikeCounter.jsx";
 import CommentCounter from "../commentCounter/CommentCounter.jsx";
 
@@ -16,7 +15,7 @@ function PostProfile({ post, onLike, onUnlike }) {
     <article className={styles.post_container}>
       <Link to={`/posts/${_id}`} className={styles.post_link}>
         <picture className={styles.post_img}>
-          <img src={postImg} alt={`Post ${_id}`} />
+          <img src={photo} alt={`Post ${_id}`} />
         </picture>
       </Link>
       <div className={styles.post_likes_comments}>
