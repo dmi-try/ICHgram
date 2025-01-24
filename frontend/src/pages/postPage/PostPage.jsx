@@ -62,7 +62,7 @@ function PostPage() {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       console.error("Error deleting post:", error.response?.data || error);
     }
