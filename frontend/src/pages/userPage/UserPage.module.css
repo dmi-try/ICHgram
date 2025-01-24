@@ -1,0 +1,76 @@
+.profile_info_container {
+  display: grid;
+  row-gap: 56px;
+  grid-template-rows: min-content 1fr;
+
+  padding: 32px 96px;
+}
+
+.profile_header {
+  display: flex;
+  gap: 100px;
+  align-items: start;
+}
+
+.profile_user {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+}
+
+.profile_user h3 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.profile_user a {
+  padding: 8px 0;
+  min-width: 170px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+
+  background-color: #efefef;
+
+  cursor: pointer;
+}
+
+.profile_user p {
+  font-size: 14px;
+  text-align: left;
+}
+
+.profile_actions,
+.profile_stats {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.profile_stats p {
+  font-size: 16px;
+}
+
+.user_posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  margin: 0 auto;
+
+  width: 930px;
+}
+
+.profile_actions button {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+
+  color: #0095f6;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
