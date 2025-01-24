@@ -10,6 +10,8 @@ afterAll(async () => { await closeDB(); });
 describe('Posts API', () => {
   let token;
 
+  let postId;
+
   const firstUser = {
     name: 'Posts_user',
     fullname: 'Posts User',
@@ -36,8 +38,58 @@ describe('Posts API', () => {
       token = response.body.token;
     });
   });
-  it.todo('Posts tests');
-  describe('Delete posts', () => {
+  describe('Add post', () => {
+    it('should add post', async () => {
+      const response = await request(app)
+        .post('/posts')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          text: 'Test post',
+          photo: 'test.jpg',
+        });
+      expect(response.status).toBe(201);
+      postId = response.body.post._id;
+    });
+  });
+  describe('Get posts', () => {
+    it('should return posts', async () => {
+      const response = await request(app)
+        .get('/posts')
+        .set('Authorization', `Bearer ${token}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toBeInstanceOf(Array);
+    });
+  });
+  describe('Get post', () => {
+    it('should return post', async () => {
+      const response = await request(app)
+        .get(`/posts/${postId}`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(response.status).toBe(200);
+      expect(response.body.text).toBe('Test post');
+    });
+  });
+  describe('Update post', () => {
+    it('should update post', async () => {
+      const response = await request(app)
+        .patch(`/posts/${postId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          text: 'Updated post',
+        });
+      expect(response.status).toBe(200);
+      expect(response.body.post.text).toBe('Updated post');
+    });
+  });
+  describe('Delete post', () => {
+    it('should delete post', async () => {
+      const response = await request(app)
+        .delete(`/posts/${postId}`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(response.status).toBe(200);
+    });
+  });
+  describe('Delete posts env', () => {
     it('should delete user', async () => {
       const response = await request(app)
         .delete('/auth/profile')
