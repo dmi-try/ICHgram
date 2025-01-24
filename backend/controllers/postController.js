@@ -6,7 +6,6 @@ import Comment from "../models/commentModel.js";
 
 export const getPosts = async (req, res) => {
   try {
-    const user = req.user;
     const explore = req.query.explore || !user;
 
     let posts;
@@ -35,12 +34,19 @@ export const getPosts = async (req, res) => {
         });
         const commentCount = await Comment.countDocuments({ post: post._id });
         const likeCount = await Like.countDocuments({ post: post._id });
-
+        const user = post.user.toJSON();
+        user.isMe = post.user._id.equals(req.user);
+        user.isFollowing = !!(await Follow.findOne({
+          user: post.user._id,
+          follower: req.user,
+        }));
+    
         return {
           ...post.toJSON(),
           isLiked: !!isLiked,
           commentCount,
           likeCount,
+          user
         };
       })
     );
@@ -97,10 +103,17 @@ export const getPost = async (req, res) => {
 
 export const addPost = async (req, res) => {
   try {
-    const { photo, text } = req.body;
-    const post = new Post({ photo: photo, text, user: req.user });
+    if (!req.file) {
+      return res.status(400).json({ error: "Image is not provided." });
+    }
+
+    const imageBuffer = req.file.buffer;
+    const imageBase64 = imageBuffer.toString("base64");
+
+    const { text } = req.body;
+    const post = new Post({ photo: `data:image/jpeg;base64,${imageBase64}`, text, user: req.user });
     await post.save();
-    res.status(201).json({ message: "Post has been added" });
+    res.status(201).json({ message: "Post has been added", post: post });
   } catch (error) {
     console.error("Error adding post:", error);
     res.status(500).json({ message: "Server error", error: error.message });
@@ -121,7 +134,7 @@ export const updatePost = async (req, res) => {
         .status(404)
         .json({ message: "Post not found or unauthorized" });
     }
-    res.status(200).json({ message: "Post has been updated" });
+    res.status(200).json({ message: "Post has been updated" , post: post});
   } catch (error) {
     console.error("Error updating post:", error);
     res.status(500).json({ message: "Server error", error: error.message });
