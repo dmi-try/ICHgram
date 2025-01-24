@@ -97,6 +97,9 @@ export const getProfile = async (req, res) => {
         $addFields: {
           likeCount: { $size: "$likes" },
           commentCount: { $size: "$comments" },
+          isLiked: {
+            $in: [new mongoose.Types.ObjectId(req.user), "$likes.user"],
+          },
         },
       },
       {
@@ -108,11 +111,14 @@ export const getProfile = async (req, res) => {
     ]);
     const followersCount = await Follow.countDocuments({ user: req.user });
     const followingCount = await Follow.countDocuments({ follower: req.user });
+  posts
+    const likesCount = posts.reduce((acc, post) => acc + post.likeCount, 0);
     res.status(200).json({
       ...user.toJSON(),
       posts,
       followersCount,
       followingCount,
+      likesCount,
     });
   } catch (error) {
     console.error("Error loading the profile:", error);

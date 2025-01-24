@@ -49,6 +49,9 @@ export const getUser = async (req, res) => {
         $addFields: {
           likeCount: { $size: "$likes" },
           commentCount: { $size: "$comments" },
+          isLiked: {
+            $in: [new mongoose.Types.ObjectId(req.user), "$likes.user"],
+          },
         },
       },
       {
@@ -62,7 +65,7 @@ export const getUser = async (req, res) => {
     const followingCount = await Follow.countDocuments({
       follower: req.params.id,
     });
-
+    const likesCount = posts.reduce((acc, post) => acc + post.likeCount, 0);
     const isFollowing = await Follow.findOne({
       user: req.params.id,
       follower: req.user,
@@ -75,6 +78,7 @@ export const getUser = async (req, res) => {
       posts,
       followersCount,
       followingCount,
+      likesCount,
       isFollowing: !!isFollowing,
       isMe,
     });
