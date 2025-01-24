@@ -73,6 +73,46 @@ function UserPage() {
     }
   };
 
+  const handleLike = async (postId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchUser();
+    } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
+      console.error("Error liking post: ", error.response?.data || error);
+    }
+  };
+
+  const handleUnlike = async (postId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchUser();
+    } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
+      console.error("Error unliking post: ", error.response?.data || error);
+    }
+  };
+
+
   return (
     <section>
       <div className={styles.profile_info_container}>
@@ -99,9 +139,9 @@ function UserPage() {
               )}
             </div>
             <div className={styles.profile_stats}>
-              <p>00 likes</p>
-              <p>00 followers</p>
-              <p>00 following</p>
+              <p>{user.likesCount} likes</p>
+              <p>{user.followersCount} followers</p>
+              <p>{user.followingCount} following</p>
             </div>
             <p>{user.fullname}</p>
             <p>{user.bio}</p>
@@ -112,7 +152,7 @@ function UserPage() {
         {user.posts && user.posts.length > 0 ? ( // Проверяем, есть ли посты
           user.posts.map((post) => (
             <li key={post._id}>
-              <PostProfile post={post} />
+              <PostProfile post={post} onLike={() => handleLike(post._id)} onUnlike={() => handleUnlike(post._id)} />
             </li>
           ))
         ) : (
