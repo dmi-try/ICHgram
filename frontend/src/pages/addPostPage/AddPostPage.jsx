@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 function AddPostPage() {
   const [text, setText] = useState("");
@@ -21,7 +20,7 @@ function AddPostPage() {
     formData.append("text", text);
     
     try {
-      await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/posts`,
         formData,
         {
@@ -30,8 +29,10 @@ function AddPostPage() {
           },
         }
       );
-      navigate("/");
+      console.log(response.data);
+      navigate("/posts/" + response.data.post._id);
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error adding post:", error.response?.data || error);
     }
   };
