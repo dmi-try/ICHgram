@@ -1,12 +1,13 @@
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import mongoose from "mongoose";
+
 import User from "../models/userModel.js";
 import Comment from "../models/commentModel.js";
 import Post from "../models/postModel.js";
 import Follow from "../models/followModel.js";
 import Like from "../models/likeModel.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 
-import mongoose from "mongoose";
 
 export const registerUser = async (req, res) => {
   try {
@@ -105,13 +106,13 @@ export const getProfile = async (req, res) => {
         },
       },
     ]);
-    const followers = await Follow.find({ user: req.user });
-    const following = await Follow.find({ follower: req.user });
+    const followersCount = await Follow.countDocuments({ user: req.user });
+    const followingCount = await Follow.countDocuments({ follower: req.user });
     res.status(200).json({
       ...user.toJSON(),
       posts,
-      followers,
-      following,
+      followersCount,
+      followingCount,
     });
   } catch (error) {
     console.error("Error loading the profile:", error);
