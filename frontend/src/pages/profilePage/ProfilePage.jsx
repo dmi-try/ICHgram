@@ -87,9 +87,9 @@ function ProfilePage() {
               <Link to="/profile/edit">Edit Profile</Link>
             </div>
             <div className={styles.profile_stats}>
-              <p>00 likes</p>
-              <p>00 followers</p>
-              <p>00 following</p>
+              <p>{profile.likesCount} likes</p>
+              <p>{profile.followersCount} followers</p>
+              <p>{profile.followingCount} following</p>
             </div>
             <p>{profile.fullname}</p>
             <p>{profile.bio}</p>
