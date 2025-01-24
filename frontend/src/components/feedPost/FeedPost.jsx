@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./FeedPost.module.css";
 import LikeCounter from "../likeCounter/LikeCounter.jsx";
 import CommentCounter from "../commentCounter/CommentCounter.jsx";
@@ -7,10 +7,10 @@ import axios from "axios";
 
 function FeedPost({ post, onLike, onUnlike, refreshData }) {
   const { _id, photo, likeCount, commentCount, isLiked } = post;
-
+  const navigate = useNavigate();
   const handleCommentClick = () => {
     // Переход на страницу поста при клике на комментарии
-    window.location.href = `/posts/${_id}`;
+    navigate(`/posts/${_id}`);
   };
 
   const handleFollow = async () => {
