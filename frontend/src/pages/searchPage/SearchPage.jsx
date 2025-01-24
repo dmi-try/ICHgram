@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 function SearchPage() {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
@@ -20,6 +21,7 @@ function SearchPage() {
         );
         setUsers(response.data);
       } catch (error) {
+        if (error.response?.status === 401) { navigate("/login"); }
         console.error("Error fetching users: ", error.response?.data || error);
       }
     };

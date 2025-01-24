@@ -29,6 +29,7 @@ function PostPage() {
       console.log("Post fetched: ", response.data);
       setPost(response.data);
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error fetching post: ", error.response?.data || error);
     }
   };
@@ -50,6 +51,7 @@ function PostPage() {
       );
       fetchPost();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error adding comment:", error.response?.data || error);
     }
   };
@@ -64,6 +66,7 @@ function PostPage() {
       });
       navigate("/profile");
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error deleting post:", error.response?.data || error);
     }
   };
@@ -82,6 +85,7 @@ function PostPage() {
       );
       fetchPost();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error adding like:", error.response?.data || error);
     }
   };
@@ -99,6 +103,7 @@ function PostPage() {
       );
       fetchPost();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error removing like:", error.response?.data || error);
     }
   };
@@ -118,6 +123,7 @@ function PostPage() {
       );
       fetchPost();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error following user:", error.response?.data || error);
     }
   };
@@ -135,6 +141,7 @@ function PostPage() {
       );
       fetchPost();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error unfollowing user:", error.response?.data || error);
     }
   };

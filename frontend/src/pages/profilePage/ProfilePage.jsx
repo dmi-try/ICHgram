@@ -9,27 +9,25 @@ function ProfilePage() {
   const [profile, setProfile] = useState([]);
   const navigate = useNavigate();
 
-    const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
+  const fetchProfile = async () => {
+    const token = localStorage.getItem("token");
 
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/auth/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setProfile(response.data);
-        console.log(response.data);
-      } catch (error) {
-        if (error.response?.status === 401) {
-          navigate("/login");
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        console.error("Error fetching profile:", error.response?.data || error);
-      }
-    };
+      );
+      setProfile(response.data);
+      console.log(response.data);
+    } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
+      console.error("Error fetching profile:", error.response?.data || error);
+    }
+  };
 
   useEffect(() => {
     fetchProfile();

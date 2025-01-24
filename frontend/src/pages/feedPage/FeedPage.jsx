@@ -22,9 +22,7 @@ function FeedPage() {
       );
       setPosts(response.data);
     } catch (error) {
-      if (error.response?.status === 401) {
-        navigate("/login");
-      }
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error fetching posts: ", error.response?.data || error);
     }
   };
@@ -47,6 +45,7 @@ function FeedPage() {
       );
       fetchPosts();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error liking post: ", error.response?.data || error);
     }
   };
@@ -65,6 +64,7 @@ function FeedPage() {
       );
       fetchPosts();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error unliking post: ", error.response?.data || error);
     }
   };

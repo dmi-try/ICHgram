@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PostProfile from "../../components/postProfile/PostProfile.jsx";
 import Button from "../../components/button/Button.jsx";
 import styles from "./UserPage.module.css";
@@ -10,6 +10,8 @@ import userAvatar from "../../assets/images/profile_user_avatar.png";
 function UserPage() {
   const [user, setUser] = useState([]);
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
@@ -29,6 +31,7 @@ function UserPage() {
         navigate('/profile');
       }
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error fetching user: ", error.response?.data || error);
     }
   };
@@ -52,6 +55,7 @@ function UserPage() {
       );
       fetchUser();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error following user:", error.response?.data || error);
     }
   };
@@ -69,6 +73,7 @@ function UserPage() {
       );
       fetchUser();
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error unfollowing user:", error.response?.data || error);
     }
   };

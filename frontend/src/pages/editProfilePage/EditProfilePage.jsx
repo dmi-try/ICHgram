@@ -30,6 +30,7 @@ const EditProfile = () => {
         );
         setFormData(response.data); // Установим начальные значения для формы
       } catch (error) {
+        if (error.response?.status === 401) { navigate("/login"); }
         console.error("Error fetching profile:", error.response?.data || error);
       }
     };
@@ -58,6 +59,7 @@ const EditProfile = () => {
       );
       navigate("/profile"); // Перенаправляем обратно на страницу профиля
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error updating profile:", error.response?.data || error);
     }
   };
@@ -72,6 +74,7 @@ const EditProfile = () => {
       });
       navigate("/");
     } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
       console.error("Error deleting profile:", error.response?.data || error);
     }
   };
