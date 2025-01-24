@@ -3,6 +3,8 @@ import styles from "./FeedPost.module.css";
 import postImg from "../../assets/images/post_img_placeholder_big.jpg";
 import LikeCounter from "../likeCounter/LikeCounter.jsx";
 import CommentCounter from "../commentCounter/CommentCounter.jsx";
+import UserComponent from "../userComponent/UserComponent.jsx";
+import axios from "axios";
 
 function FeedPost({ post, onLike, onUnlike }) {
   const { _id, photo, likeCount, commentCount, isLiked } = post;
@@ -14,6 +16,7 @@ function FeedPost({ post, onLike, onUnlike }) {
 
   return (
     <article className={styles.post_container}>
+      <UserComponent user={post.user} />
       <Link to={`/posts/${_id}`} className={styles.post_link}>
         <picture className={styles.post_img}>
           <img src={postImg} alt={`Post ${_id}`} />
