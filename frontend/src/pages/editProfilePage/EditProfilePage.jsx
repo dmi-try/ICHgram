@@ -89,14 +89,7 @@ const EditProfile = () => {
             Delete profile
           </button>
         </div>
-
-        {Object.entries(
-          Object.fromEntries(
-            Object.entries(formData).filter(
-              ([key]) => key !== "_id" && key !== "__v"
-            )
-          )
-        ).map(([key, value]) => (
+        { ["name", "email", "fullname", "bio"].map((key) => (
           <div key={key} className={styles.input_wrapper}>
             <label htmlFor={key} className={styles.input_label}>
               {key.charAt(0).toUpperCase() + key.slice(1)}:
@@ -104,7 +97,7 @@ const EditProfile = () => {
             <Input
               type={key === "email" ? "email" : "text"}
               name={key}
-              value={value}
+              value={formData[key]}
               onChange={handleChange}
             />
           </div>
