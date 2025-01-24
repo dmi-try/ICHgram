@@ -9,7 +9,6 @@ function ProfilePage() {
   const [profile, setProfile] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
 
@@ -32,12 +31,47 @@ function ProfilePage() {
       }
     };
 
+  useEffect(() => {
     fetchProfile();
   }, []);
+  const handleLike = async (postId) => {
+    const token = localStorage.getItem("token");
 
-  // if (!profile) {
-  //   return <p>Loading profile...</p>;
-  // }
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchProfile();
+    } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
+      console.error("Error liking post: ", error.response?.data || error);
+    }
+  };
+
+  const handleUnlike = async (postId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${postId}/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchProfile();
+    } catch (error) {
+      if (error.response?.status === 401) { navigate("/login"); }
+      console.error("Error unliking post: ", error.response?.data || error);
+    }
+  };
 
   return (
     <section>
@@ -66,7 +100,7 @@ function ProfilePage() {
         {profile.posts && profile.posts.length > 0 ? ( // Проверяем, есть ли посты
           profile.posts.map((post) => (
             <li key={post._id}>
-              <PostProfile post={post} />
+              <PostProfile post={post} onLike={() => handleLike(post._id)} onUnlike={() => handleUnlike(post._id)} />
             </li>
           ))
         ) : (
