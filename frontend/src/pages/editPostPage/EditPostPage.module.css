@@ -1,0 +1,71 @@
+.editor_container {
+  display: grid;
+  grid-template-columns: 573px 1fr;
+  grid-template-rows: auto 1fr;
+  margin: 0 auto;
+
+  width: 913px;
+  border-radius: 12px;
+  background-color: #fafafa;
+}
+
+.editor_header {
+  grid-column: span 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 24px;
+
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.edit_save_btn {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+
+  color: #0095f6;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.edit_photo_wrapper {
+  min-height: 400px;
+}
+
+.edit_photo_wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.edit_description_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+
+  padding: 32px 24px;
+}
+
+.edit_description_wrapper label {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+.edit_description {
+  padding: 4px 8px;
+  min-height: 32px;
+  width: 100%;
+  max-width: 450px;
+  border: none;
+  border-radius: 4px;
+
+  font-family: "Roboto", Helvetica, sans-serif;
+}
