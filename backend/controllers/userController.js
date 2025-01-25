@@ -9,8 +9,12 @@ export const getUsers = async (req, res) => {
     const { name } = req.query;
     const query = name ? { name: { $regex: new RegExp(name, "i") } } : {};
 
-    const users = await User.find(query, "-password");
-    res.status(200).json(users);
+    const users = await User.find(query, "-password").lean();
+    const updatedUsers = users.map((user) => ({
+      ...user,
+      isMe: req.user == user._id,
+    }));
+    res.status(200).json(updatedUsers);
   } catch (error) {
     console.error("Error retrieving users:", error);
     res.status(500).json({ message: "Server error" });

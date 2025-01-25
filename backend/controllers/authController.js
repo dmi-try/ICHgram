@@ -8,7 +8,6 @@ import Post from "../models/postModel.js";
 import Follow from "../models/followModel.js";
 import Like from "../models/likeModel.js";
 
-
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, fullname } = req.body;
@@ -111,7 +110,7 @@ export const getProfile = async (req, res) => {
     ]);
     const followersCount = await Follow.countDocuments({ user: req.user });
     const followingCount = await Follow.countDocuments({ follower: req.user });
-  posts
+    posts;
     const likesCount = posts.reduce((acc, post) => acc + post.likeCount, 0);
     res.status(200).json({
       ...user.toJSON(),
@@ -119,6 +118,7 @@ export const getProfile = async (req, res) => {
       followersCount,
       followingCount,
       likesCount,
+      isMe: true,
     });
   } catch (error) {
     console.error("Error loading the profile:", error);

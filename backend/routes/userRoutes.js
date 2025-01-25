@@ -5,7 +5,7 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getUsers); //+
+router.get("/", authMiddleware, getUsers); //+
 
 router.get("/:id", authMiddleware, getUser); //+
 
