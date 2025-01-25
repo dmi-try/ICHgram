@@ -57,6 +57,7 @@
 .user_posts {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  row-gap: 16px;
 
   margin: 0 auto;
 

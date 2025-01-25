@@ -24,7 +24,9 @@ function ProfilePage() {
       setProfile(response.data);
       console.log(response.data);
     } catch (error) {
-      if (error.response?.status === 401) { navigate("/login"); }
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
       console.error("Error fetching profile:", error.response?.data || error);
     }
   };
@@ -32,6 +34,7 @@ function ProfilePage() {
   useEffect(() => {
     fetchProfile();
   }, []);
+
   const handleLike = async (postId) => {
     const token = localStorage.getItem("token");
 
@@ -47,7 +50,9 @@ function ProfilePage() {
       );
       fetchProfile();
     } catch (error) {
-      if (error.response?.status === 401) { navigate("/login"); }
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
       console.error("Error liking post: ", error.response?.data || error);
     }
   };
@@ -66,7 +71,9 @@ function ProfilePage() {
       );
       fetchProfile();
     } catch (error) {
-      if (error.response?.status === 401) { navigate("/login"); }
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
       console.error("Error unliking post: ", error.response?.data || error);
     }
   };
@@ -98,7 +105,11 @@ function ProfilePage() {
         {profile.posts && profile.posts.length > 0 ? ( // Проверяем, есть ли посты
           profile.posts.map((post) => (
             <li key={post._id}>
-              <PostProfile post={post} onLike={() => handleLike(post._id)} onUnlike={() => handleUnlike(post._id)} />
+              <PostProfile
+                post={post}
+                onLike={() => handleLike(post._id)}
+                onUnlike={() => handleUnlike(post._id)}
+              />
             </li>
           ))
         ) : (
