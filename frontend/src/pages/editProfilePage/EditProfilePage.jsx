@@ -28,9 +28,16 @@ const EditProfile = () => {
             },
           }
         );
-        setFormData(response.data); // Установим начальные значения для формы
+        setFormData({
+          name: response.data.name,
+          email: response.data.email,
+          fullname: response.data.fullname,
+          bio: response.data.bio,
+        }); // Установим начальные значения для формы
       } catch (error) {
-        if (error.response?.status === 401) { navigate("/login"); }
+        if (error.response?.status === 401) {
+          navigate("/login");
+        }
         console.error("Error fetching profile:", error.response?.data || error);
       }
     };
@@ -59,7 +66,9 @@ const EditProfile = () => {
       );
       navigate("/profile"); // Перенаправляем обратно на страницу профиля
     } catch (error) {
-      if (error.response?.status === 401) { navigate("/login"); }
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
       console.error("Error updating profile:", error.response?.data || error);
     }
   };
@@ -74,7 +83,9 @@ const EditProfile = () => {
       });
       navigate("/");
     } catch (error) {
-      if (error.response?.status === 401) { navigate("/login"); }
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
       console.error("Error deleting profile:", error.response?.data || error);
     }
   };
@@ -92,7 +103,7 @@ const EditProfile = () => {
             Delete profile
           </button>
         </div>
-        { ["name", "email", "fullname", "bio"].map((key) => (
+        {["name", "email", "fullname", "bio"].map((key) => (
           <div key={key} className={styles.input_wrapper}>
             <label htmlFor={key} className={styles.input_label}>
               {key.charAt(0).toUpperCase() + key.slice(1)}:
