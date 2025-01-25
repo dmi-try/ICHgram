@@ -1,0 +1,60 @@
+.form_add_post {
+  display: grid;
+  grid-template-columns: 573px 1fr;
+  grid-template-rows: auto 1fr;
+  margin: 0 auto;
+
+  width: 913px;
+  border-radius: 12px;
+  background-color: #fafafa;
+}
+
+.form_header {
+  grid-column: span 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 24px;
+
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.form_share_btn {
+  margin: 0;
+  border: none;
+  background-color: transparent;
+
+  color: #0095f6;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.form_description_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+
+  padding: 32px 24px;
+}
+
+.form_description_wrapper label {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+.form_description {
+  padding: 4px 8px;
+  min-height: 32px;
+  width: 100%;
+  max-width: 450px;
+  border: none;
+  border-radius: 4px;
+
+  font-family: "Roboto", Helvetica, sans-serif;
+}
