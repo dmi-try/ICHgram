@@ -1,0 +1,15 @@
+.search_container {
+  display: grid;
+  grid-template-rows: 48px 60px 1fr;
+  text-align: left;
+
+  padding: 16px 24px;
+
+  max-width: 396px;
+  height: 70vh;
+}
+
+.search_container input {
+  border-radius: 8px;
+  background-color: #efefef;
+}
