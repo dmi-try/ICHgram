@@ -1,0 +1,26 @@
+.file_input_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 400px;
+
+  border-right: 1px solid #dbdbdb;
+}
+
+.custom_file_upload {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.file_input {
+  display: none;
+}
+
+.file_name {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
