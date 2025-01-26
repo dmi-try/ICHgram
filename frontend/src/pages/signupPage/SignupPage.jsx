@@ -75,7 +75,7 @@ function SignupPage() {
 
           <Button type="submit" text="Register" />
         </form>
-        {message && <p>{message}</p>}
+        {message && <p className={styles.error_message}>{message}</p>}
       </div>
       <p className={styles.sign_up_login_block}>
         Have an account?

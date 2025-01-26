@@ -73,7 +73,7 @@ function LoginPage() {
             ))}
             <Button text="Log in" />
           </form>
-          {message && <p>{message}</p>}
+          {message && <p className={styles.error_message}>{message}</p>}
           <Divider />
           <div>
             <Link to="" className={styles.login_forgot_pass}>
