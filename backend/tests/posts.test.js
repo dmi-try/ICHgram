@@ -43,10 +43,8 @@ describe('Posts API', () => {
       const response = await request(app)
         .post('/posts')
         .set('Authorization', `Bearer ${token}`)
-        .send({
-          text: 'Test post',
-          photo: 'test.jpg',
-        });
+        .attach('photo', Buffer.from('a'.repeat(100)), 'test.jpg')
+        .field('text', 'Test post');
       expect(response.status).toBe(201);
       postId = response.body.post._id;
     });

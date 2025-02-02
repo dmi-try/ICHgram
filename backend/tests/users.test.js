@@ -103,7 +103,9 @@ describe("User API", () => {
 
   describe("Get users", () => {
     it("should get users list", async () => {
-      const response = await request(app).get("/users/");
+      const response = await request(app)
+      .get("/users/")
+      .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(200);
       expect(response.body).toHaveLength(2);
     });
